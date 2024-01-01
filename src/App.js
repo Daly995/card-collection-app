@@ -1,25 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React, { useState, useEffect } from 'react';
+import CardList from './CardList';
 
-function App() {
+const App = () => {
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    // Fetch card data from your API
+    fetch('https://example.com/api/cards')
+      .then((response) => response.json())
+      .then((data) => setCards(data))
+      .catch((error) => console.error('Error fetching data:', error));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Card Collection App</h1>
+      <CardList cards={cards} />
     </div>
   );
-}
+};
 
 export default App;
